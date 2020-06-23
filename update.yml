@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Upgrade all packages to the latest version
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+  - name: Update FlatPaks and Snaps
+    shell: |
+      if which snap ; then 
+        snap refresh
+      fi
+      if which flatpak ; then
+        flatpak update -y
+      fi

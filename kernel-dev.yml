@@ -1,0 +1,72 @@
+---
+- hosts: kdev
+  become: yes
+  tasks:
+  - name: Upgrade all packages to the latest version
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+
+  - name: Install packages required for kernel dev
+    apt:
+      name:
+        - git
+        - build-essential
+        - kernel-package
+        - fakeroot
+        - libncurses5-dev
+        - libssl-dev
+        - ccache
+        - flex
+        - bison
+        - libelf-dev
+        - libssl-dev
+        - bc
+        - asciidoc-base
+        - cmake
+        - pkg-config
+        - autoconf
+        - libconfig-dev
+        - libtool
+      state: latest
+
+  - name: Patch initramfs.conf
+    shell: |
+      sed -i /etc/initramfs-tools/initramfs.conf -e s/MODULES=most/MODULES=dep/
+  
+  - name: Reload shared library cache
+    shell: ldconfig
+
+  - name: Clone kernel
+    git:
+      repo: 'git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git'
+      dest: /usr/src/linux-kernel
+      version: v5.4.48
+
+  - name: Setup default kernel config
+    shell: |
+      cd /usr/src/linux-kernel/
+      cp /boot/config-`uname -r` /usr/src/linux-kernel/.config
+      yes '' | make oldconfig
+
+  - name: Copy patch over
+    blockinfile:
+      path: /usr/src/linux-kernel/.config-patch
+      create: yes
+      block: |
+        CONFIG_CONFIGFS_FS=y
+        CONFIG_USB=y
+        CONFIG_USB_GADGET=y
+        CONFIG_USB_DUMMY_HCD=y
+        CONFIG_USB_CONFIGFS=y
+        CONFIG_USB_CONFIGFS_F_FS=y
+
+  - name: Merge kernel configs
+    ignore_errors: yes
+    shell:
+      cmd: |
+        cd /usr/src/linux-kernel
+        ./scripts/kconfig/merge_config.sh .config .config-patch
+    
+      
