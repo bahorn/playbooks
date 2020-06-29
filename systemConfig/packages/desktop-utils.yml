@@ -1,5 +1,4 @@
 - name: "Install common tools"
   apt:
     pkg:
-    - ubuntu-desktop
     - firefox

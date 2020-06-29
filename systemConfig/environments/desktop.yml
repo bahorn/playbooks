@@ -11,19 +11,18 @@
     salt_size: 7
   tasks:
   # Setup the basic system
-  - import_tasks: system/base.yml
+  - import_tasks: ../system/base.yml
   # Our general user configuration
-  - import_tasks: users/main.yml
-  - import_tasks: users/remove-ubuntu.yml
+  - import_tasks: ../users/main.yml
+  - import_tasks: ../users/remove-ubuntu.yml
  
   # Install Packages
-  - import_tasks: packages/devtools.yml
-  - import_tasks: packages/crypto.yml
-  - import_tasks: packages/tmux.yml
-  - import_tasks: packages/spice.yml
-  - import_tasks: packages/regolith.yml
-  - import_tasks: packages/desktop-utils.yml
-  - import_tasks: packages/neovim.yml
+  - import_tasks: ../packages/devtools.yml
+  - import_tasks: ../packages/crypto.yml
+  - import_tasks: ../packages/tmux.yml
+  - import_tasks: ../packages/regolith.yml
+  - import_tasks: ../packages/desktop-utils.yml
+  - import_tasks: ../packages/neovim.yml
     vars:
       build_dir: /srv/builds
   

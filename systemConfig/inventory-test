@@ -1,2 +1,5 @@
 [desktops]
 test-ubuntu-vm
+
+[desktop-vms]
+test-ubuntu-desktop-vm

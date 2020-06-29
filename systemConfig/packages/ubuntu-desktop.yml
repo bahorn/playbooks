@@ -1,0 +1,4 @@
+- name: "Install basic ubuntu desktop"
+  apt:
+    pkg:
+    - ubuntu-desktop
