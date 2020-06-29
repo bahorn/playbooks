@@ -1,4 +1,4 @@
-- name: Remove existing Vim
+- name: NeoVim - Remove existing Vim
   apt:
     pkg:
       - vim
@@ -33,21 +33,21 @@
   args:
     chdir: "{{ build_dir }}/neovim"
 
-- name: Install Python Package
+- name: NeoVim - Install Python Package
   pip:
     name: neovim
 
-- name: Symlink vim to neovim
+- name: NeoVim - Symlink vim to neovim
   shell: |
     ln -s /usr/local/bin/nvim /usr/local/bin/vim
 
-- name: Install vundle
+- name: NeoVim - Install vundle
   become: "{{ user }}"
   git:
     repo: 'https://github.com/VundleVim/Vundle.vim.git'
     dest: '/home/{{ user }}/.vim/bundle/Vundle.vim'
 
-- name: Install the users plugins
+- name: NeoVim - Install the users plugins
   become: "{{ user }}"
   shell: |
-    vim +PluginInstall +qall
+    vim +PluginInstall +UpdateRemotePlugins +qall

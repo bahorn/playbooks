@@ -1,0 +1,5 @@
+- name: Remove the user 'ubuntu'
+  user:
+    name: ubuntu
+    state: absent
+    remove: yes

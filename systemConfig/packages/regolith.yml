@@ -2,7 +2,7 @@
   apt_repository:
     repo: 'ppa:regolith-linux/release'
 
-- name: -> Desktop Install Regolith
+- name: Desktop Install Regolith
   apt:
     pkg:
       - regolith-desktop
