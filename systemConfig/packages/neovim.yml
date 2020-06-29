@@ -46,4 +46,4 @@
 - name: NeoVim - Install the users plugins
   become: "{{ user }}"
   shell: |
-    vim +PlugInstall +qall
+    vim +PlugInstall +UpdateRemotePlugins +qall
