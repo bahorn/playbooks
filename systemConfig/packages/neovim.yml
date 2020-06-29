@@ -1,0 +1,53 @@
+- name: Remove existing Vim
+  apt:
+    pkg:
+      - vim
+    state: absent
+
+- name: NeoVim - Install Dependencies
+  apt:
+    pkg:
+    - gperf
+    - luajit
+    - luarocks
+    - libuv1-dev
+    - libluajit-5.1-dev
+    - libunibilium-dev
+    - libmsgpack-dev
+    - libtermkey-dev
+    - libvterm-dev
+    - libutf8proc-dev
+    - lua-luv-dev
+    state: latest
+
+- name: NeoVim - Clone Repository
+  git:
+    repo: 'https://github.com/neovim/neovim'
+    dest: "{{ build_dir }}/neovim"
+
+- name: NeoVim - Build and Install
+  shell: |
+    make -j $(nproc) CMAKE_BUILD_TYPE=Release
+    make install
+    make clean
+  args:
+    chdir: "{{ build_dir }}/neovim"
+
+- name: Install Python Package
+  pip:
+    name: neovim
+
+- name: Symlink vim to neovim
+  shell: |
+    ln -s /usr/local/bin/nvim /usr/local/bin/vim
+
+- name: Install vundle
+  become: "{{ user }}"
+  git:
+    repo: 'https://github.com/VundleVim/Vundle.vim.git'
+    dest: '/home/{{ user }}/.vim/bundle/Vundle.vim'
+
+- name: Install the users plugins
+  become: "{{ user }}"
+  shell: |
+    vim +PluginInstall +qall

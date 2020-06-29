@@ -1,0 +1,7 @@
+- name: Spice utils
+  apt:
+    pkg:
+      - xserver-xorg-video-qxl
+      - spice-vdagent
+      - qemu-guest-agent
+    state: 'latest'

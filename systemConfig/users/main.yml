@@ -1,0 +1,32 @@
+- name: Add User
+  user:
+    name: '{{ user }}'
+    password: '{{ user_password }}'
+
+- name: Git clone Configuration
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/bahorn/dotfiles.git
+    dest: "/home/{{ user }}/Documents/code/configuration/dotfiles"
+
+- name: Install configuration
+  become_user: "{{ user }}"
+  shell: |
+    ./install.sh
+  args:
+    chdir: "/home/{{ user }}/Documents/code/configuration/dotfiles"
+
+
+- name: Create Basic Directories
+  become: "{{ user }}"
+  file:
+    path: "/home/{{ user }}/{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+  loop:
+    - Documents/code/
+    - Documents/code/oss/
+    - Documents/code/scripts/
+    - Documents/code/projects/
+    - .vim
+    - .vim/bundle

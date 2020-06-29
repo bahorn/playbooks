@@ -1,0 +1,14 @@
+- name: Add Regolith respository
+  apt_repository:
+    repo: 'ppa:regolith-linux/release'
+
+- name: -> Desktop Install Regolith
+  apt:
+    pkg:
+      - regolith-desktop
+      - i3xrocks-net-traffic
+      - i3xrocks-cpu-usage
+      - i3xrocks-time
+      - i3xrocks-battery
+    update_cache: yes
+    state: 'latest'

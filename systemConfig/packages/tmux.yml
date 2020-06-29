@@ -1,0 +1,16 @@
+- name: tmux
+  apt:
+    pkg:
+      - tmux
+    state: 'latest'
+
+- name: Install tpm
+  become: '{{ user }}'
+  git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: "/home/{{ user }}/.tmux/plugins/tpm"
+
+- name: Update tpm plugins
+  become: '{{ user }}'
+  shell: |
+    /home/{{ user }}/.tmux/plugins/tpm/bin/install_plugins
