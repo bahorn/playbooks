@@ -1,0 +1,29 @@
+---
+- hosts: server
+  vars:
+    user: a
+  vars_prompt:
+  - name: "user_password"
+    prompt: "Enter password"
+    private: yes
+    encrypt: "sha512_crypt"
+    confirm: yes
+    salt_size: 7
+  tasks:
+  # Setup the basic system
+  - import_tasks: ../system/base.yml
+  # Our general user configuration
+  - import_tasks: ../users/main.yml
+  - import_tasks: ../users/remove-ubuntu.yml
+ 
+  # Install Packages
+  - import_tasks: ../packages/devtools.yml
+  - import_tasks: ../packages/tmux.yml
+  - import_tasks: ../packages/neovim.yml
+    vars:
+      build_dir: /srv/builds
+  
+  # Reboot into our new system
+  - name: Rebooting
+    reboot:
+      reboot_timeout: 3600

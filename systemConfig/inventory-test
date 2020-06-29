@@ -3,3 +3,6 @@ test-ubuntu-vm
 
 [desktop-vms]
 test-ubuntu-desktop-vm
+
+[server]
+ubuntu-server-vm

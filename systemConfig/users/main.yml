@@ -2,6 +2,7 @@
   user:
     name: '{{ user }}'
     password: '{{ user_password }}'
+    shell: /usr/bin/zsh
 
 - name: Git clone Configuration
   become_user: "{{ user }}"
@@ -15,7 +16,6 @@
     ./install.sh
   args:
     chdir: "/home/{{ user }}/Documents/code/configuration/dotfiles"
-
 
 - name: Create Basic Directories
   become: "{{ user }}"

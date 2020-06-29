@@ -38,16 +38,12 @@
     name: neovim
 
 - name: NeoVim - Symlink vim to neovim
-  shell: |
-    ln -s /usr/local/bin/nvim /usr/local/bin/vim
-
-- name: NeoVim - Install vundle
-  become: "{{ user }}"
-  git:
-    repo: 'https://github.com/VundleVim/Vundle.vim.git'
-    dest: '/home/{{ user }}/.vim/bundle/Vundle.vim'
+  file:
+    state: link
+    src: /usr/local/bin/nvim
+    dest: /usr/local/bin/vim
 
 - name: NeoVim - Install the users plugins
   become: "{{ user }}"
   shell: |
-    vim +PluginInstall +UpdateRemotePlugins +qall
+    vim +PlugInstall +qall
