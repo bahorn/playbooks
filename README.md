@@ -10,6 +10,10 @@ Mainly meant for experimenting with the USB gadget interface (why the kernel
 config directly enables it)
 
 
-## 'update.yml'
+## `update.yml`
 
 Updates all packages installed by apt, flatpak and snap.
+
+## `systemConfig`
+
+Directory containing playbooks for setting up systems to match my normal needs.
