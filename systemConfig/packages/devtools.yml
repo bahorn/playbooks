@@ -17,5 +17,6 @@
     - g++
     - pkg-config
     - unzip
+    - httpie
 
     state: latest
