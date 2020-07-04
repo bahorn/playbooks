@@ -4,7 +4,9 @@
     state: latest
     update_cache: yes
 
-- name: Install zsh
+- name: Install tools required to setup the system
   apt:
-    name: "zsh"
+    name:
+    - make
+    - zsh
     state: latest

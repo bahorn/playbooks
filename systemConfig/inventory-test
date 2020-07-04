@@ -5,4 +5,5 @@ test-ubuntu-vm
 test-ubuntu-desktop-vm
 
 [server]
-ubuntu-server-vm
+umockdev-test-vm
+#ubuntu-server-vm
