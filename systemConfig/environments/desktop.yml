@@ -2,6 +2,7 @@
 - hosts: desktops
   vars:
     user: a
+    signing_key: 2BC8C5886D8FC2799506CB340AE9D6B17DA57BCE
   vars_prompt:
   - name: "user_password"
     prompt: "Enter password"

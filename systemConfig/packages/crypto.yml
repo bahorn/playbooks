@@ -1,6 +1,5 @@
-- name: Install gpg ad pass
+- name: Install pass
   apt:
     pkg:
-    - gpg
     - pass
     state: 'latest'

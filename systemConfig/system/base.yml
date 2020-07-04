@@ -9,4 +9,9 @@
     name:
     - make
     - zsh
+    - gpg
     state: latest
+
+- name: Add signing key to keyring
+  shell: |
+    gpg --keyserver hkps://keys.openpgp.org --recv-keys {{ signing_key }}

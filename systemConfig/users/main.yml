@@ -9,6 +9,9 @@
   git:
     repo: https://github.com/bahorn/dotfiles.git
     dest: "/home/{{ user }}/Documents/code/configuration/dotfiles"
+    verify_commit: yes
+    gpg_whitelist:
+    - '{{ signing_key ]}'
 
 - name: Install configuration
   become_user: "{{ user }}"
