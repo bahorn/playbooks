@@ -4,6 +4,11 @@
     password: '{{ user_password }}'
     shell: /usr/bin/zsh
 
+- name: Add signing key to keyring
+  become_user: "{{ user }}"
+  shell: |
+    gpg --keyserver hkps://keys.openpgp.org --recv-keys {{ signing_key }}
+
 - name: Git clone Configuration
   become_user: "{{ user }}"
   git:
@@ -11,7 +16,7 @@
     dest: "/home/{{ user }}/Documents/code/configuration/dotfiles"
     verify_commit: yes
     gpg_whitelist:
-    - '{{ signing_key ]}'
+      - '{{ signing_key }}'
 
 - name: Install configuration
   become_user: "{{ user }}"
