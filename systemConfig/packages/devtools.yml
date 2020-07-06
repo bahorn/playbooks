@@ -19,5 +19,6 @@
     - unzip
     - httpie
     - jq
+    - whois
 
     state: latest
